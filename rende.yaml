@@ -1,0 +1,24 @@
+databases:
+  - name: portfolio
+    databaseName: portfolio_db_yv70
+    user: sudo
+
+ services:
+ - type: pserv
+   name: pgbouncer
+   runtime: docker
+   plan: standard
+   repo:  jurayevcoder/portfolio-website-backend
+   envVars:
+   - key: postgres://sudo:MhdhhlY8uEqmvDd1glD1xIAbZexSnIka@dpg-ci9ce5lph6ekmcju6jjg-a/portfolio_db_yv70
+     fromDatabase:
+       name: portfolio_db_yv70
+       property: connectionString
+   - key: POOL_MODE
+     value: transaction
+   - key: SERVER_RESET_QUERY
+     value: DISCARD ALL
+   - key: MAX_CLIENT_CONN
+     value: 500
+   - key: DEFAULT_POOL_SIZE
+     value: 50
